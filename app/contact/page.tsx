@@ -65,17 +65,28 @@ export default function ContactPage() {
             <p className="quality-print">Reach out to us — we respond fast!</p>
 
             <div className="contact-grid">
-              <div className="contact-box">
-                <h3><FaEnvelope /> Email</h3>
-                <p>printwellinfos@gmail.com</p>
-                <a
-  className="contact-btn email"
-  href="mailto:printwellinfos@gmail.com?subject=Inquiry%20from%20Website&body=Hello%20PrintWell!"
->
-  Send Email
-</a>
+             <div className="contact-box">
+  <h3><FaEnvelope /> Email</h3>
+  <p>printwellinfos@gmail.com</p>
+  <a
+    className="contact-btn email"
+    href="https://mail.google.com/mail/?view=cm&fs=1&to=printwellinfos@gmail.com&su=Inquiry%20from%20Website&body=Hello%20PrintWell!"
+    onClick={(e) => {
+      // fallback to mailto: if Gmail fails
+      const gmailUrl = "https://mail.google.com/mail/?view=cm&fs=1&to=printwellinfos@gmail.com&su=Inquiry%20from%20Website&body=Hello%20PrintWell!";
+      const mailtoUrl = "mailto:printwellinfos@gmail.com?subject=Inquiry%20from%20Website&body=Hello%20PrintWell!";
+      // try opening Gmail first
+      const win = window.open(gmailUrl, "_blank");
+      if (!win) {
+        window.location.href = mailtoUrl;
+      }
+      e.preventDefault();
+    }}
+  >
+    Send Email
+  </a>
+</div>
 
-              </div>
 
               <div className="contact-box">
                 <h3><FaWhatsapp /> WhatsApp</h3>
