@@ -200,53 +200,56 @@ body {
 }
 
 /* HERO IMAGE GRID */
-.hero-bg {
-  position: absolute;
-  inset: 0;
+/* --- NEW HERO LAYOUT --- */
+
+.hero-layout {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
-  padding: 1.5rem;
-  z-index: 0;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 2rem;
 }
 
-.hero-bg-item {
-  height: 260px;
+.hero-left {
+  z-index: 5;
+  text-align: left;
+}
+
+.hero-right {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
   border-radius: 18px;
-  background-size: cover; /* Keep original size initially */
-  background-position: center top;
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
-  transition: transform 0.5s ease, box-shadow 0.5s ease, background-position 0.5s ease;
-  will-change: transform, background-position;
-  overflow: hidden; /* Keep images clipped in normal state */
+  background: #e8f1ff;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
 }
 
-/* HOVER FULL IMAGE REVEAL WITHOUT CHANGING CONTAINER SIZE */
-.hero-bg-item:hover {
-  transform: scale(1);
-  background-size: contain;
-  background-position: center center;
-  z-index: 10;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
-}
-
-/* GLASS OVERLAY */
-.hero-bg-item::after {
-  content: "";
+.hero-slide {
   position: absolute;
   inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.25),
-    rgba(255, 255, 255, 0)
-  );
-  pointer-events: none;
-  transition: background 0.3s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity .7s ease, transform 1.2s ease;
 }
 
-.hero-bg-item:hover::after {
-  background: rgba(0, 0, 0, 0.05);
+.hero-slide.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (max-width: 850px) {
+  .hero-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-right {
+    order: -1;
+    aspect-ratio: 1 / 1;
+  }
 }
 
 
@@ -283,7 +286,7 @@ body {
 .btn {
   padding: 0.7rem 1.2rem;
   border-radius: 10px;
-    margin-top: 170px;
+  margin-top: 1rem;
   background: var(--primary);
   color: white;
   border: none;
@@ -292,7 +295,7 @@ body {
 .btn.primary {
   padding: 0.7rem 1.2rem;
   border-radius: 10px;
-    margin-top: 170px;
+  margin-top: 1rem;
   background: var(--primary);
   color: white;
   border: none;
@@ -408,4 +411,217 @@ body {
   z-index: 10;
 }
 
+}
+
+.hero-right {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  margin-left: auto;
+
+  /* remove box look */
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+
+  /* slightly smaller */
+  aspect-ratio: 4/6;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* clearer — no cropping */
+
+  opacity: 0;
+  transform: scale(1.03);
+  transition: opacity .6s ease, transform 1s ease;
+}
+
+.hero-slide.show {
+  opacity: 1;
+  transform: scale(1);
+}
+.contact-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.contact-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.contact-box {
+  background: rgba(255,255,255,0.75);
+  padding: 1rem 1.25rem;
+  border-radius: 14px;
+  box-shadow: 0 15px 35px rgba(0,0,0,.08);
+  backdrop-filter: blur(6px);
+}
+
+.contact-box h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.contact-box p {
+  margin: 0;
+}
+
+.hero-left {
+  z-index: 5;
+  text-align: left;
+}
+
+.hero-right {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 4 / 6;
+  overflow: hidden;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+
+  opacity: 0;
+  transform: scale(1.03);
+  transition: opacity .6s ease, transform 1s ease;
+}
+
+.hero-slide.show {
+  opacity: 1;
+  transform: scale(1);
+}
+/* Reduce top padding on contact page to bring info up */
+#contact.hero {
+  padding-top: 1rem;
+  padding-bottom: 6rem; /* keep bottom spacing */
+}
+/* Fix contact buttons stretching full width */
+.contact-box .btn {
+  display: inline-flex;
+  width: auto;
+  max-width: fit-content;
+}
+.contact-box .btn {
+  padding: 0.55rem 1rem;
+}
+
+.contact-grid {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.contact-box {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.55);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 18px 40px rgba(0,0,0,.12);
+  display: flex;
+  flex-direction: column;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.contact-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 60px rgba(0,0,0,.18);
+}
+
+.contact-box h3 {
+  margin: 0 0 .25rem 0;
+  color: var(--logo-color);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.contact-box p {
+  margin: 0 0 .6rem;
+}
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: .6rem;
+  padding: .55rem 1rem;
+  border-radius: 10px;
+  font-weight: 500;
+  text-decoration: none;
+  color: white;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.contact-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
+
+/* Colors */
+.contact-btn.email { background: var(--primary); }
+.contact-btn.email:hover { background: var(--primary-strong); }
+
+.contact-btn.whatsapp { background: #25D366; }
+.contact-btn.whatsapp:hover { background: #1EBE58; }
+
+.contact-btn.phone { background: #14ff66; }
+.contact-btn.phone:hover { background: #e96a00; }
+
+/* Quote form */
+.quote-box {
+  margin-top: 2rem;
+  background: rgba(255,255,255,.78);
+  border-radius: 16px;
+  padding: 1rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 18px 45px rgba(0,0,0,.1);
+}
+
+.quote-box form {
+  display: grid;
+  gap: .65rem;
+}
+
+.quote-box input,
+.quote-box textarea {
+  padding: .6rem .7rem;
+  border-radius: 12px;
+  border: 1px solid rgba(79,124,255,.35);
+  background: rgba(255,255,255,.9);
+}
+
+.quote-box button {
+  margin-top: .4rem;
+  padding: .65rem;
+  border-radius: 12px;
+  border: none;
+  background: var(--primary);
+  color: white;
+}
+
+.quote-box button:hover {
+  background: var(--primary-strong);
+}
+
+/* Responsive */
+@media (max-width: 820px) {
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-btn { width: 100%; justify-content: center; }
 }

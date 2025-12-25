@@ -9,19 +9,31 @@ const heroImages = [
 ];
 
 export default function HomePage() {
+
   const [menuOpen, setMenuOpen] = useState(false);
+  const [current, setCurrent] = useState(0);
   const year = new Date().getFullYear();
 
-  // Sync menu state with body class for CSS mobile menu
+  // mobile menu toggle
   useEffect(() => {
     document.body.classList.toggle("menu-open", menuOpen);
   }, [menuOpen]);
+
+  // slideshow
+  useEffect(() => {
+    const t = setInterval(() => {
+      setCurrent(prev => (prev + 1) % heroImages.length);
+    }, 3500);
+
+    return () => clearInterval(t);
+  }, []);
 
   return (
     <>
       {/* HEADER */}
       <header className="site-header">
         <div className="container header-inner">
+
           <a className="logo disassemble" href="#home">
             <img src="/image.png" alt="PrintWell logo" />
             <span className="titled">PRINTWELL</span>
@@ -32,7 +44,8 @@ export default function HomePage() {
             <a href="#home" className="nav-link">Home</a>
             <a href="#services" className="nav-link">Services</a>
             <a href="#portfolio" className="nav-link">Portfolio</a>
-            <a href="#contact" className="nav-link">Contact</a>
+            <a href="/contact" className="nav-link">Contact</a>
+
           </nav>
 
           <button
@@ -48,28 +61,36 @@ export default function HomePage() {
       {/* HERO */}
       <main id="home">
         <section className="hero">
-          {/* Hero image grid */}
-          <div className="hero-bg">
-            {heroImages.map((img, index) => (
-              <div
-                key={index}
-                className="hero-bg-item"
-                style={{ backgroundImage: `url(${img})` }}
-              />
-            ))}
-          </div>
 
-          {/* Hero content */}
-          <div className="container hero-inner">
-            
-           
+          <div className="container hero-layout">
 
-            <div className="actions">
-              <a href="#services" className="btn primary">View Services</a>
-              <a href="#contact" className="btn">Contact Us</a>
-              
-            </div>
-          </div>
+  <div className="hero-left">
+    <h1 className="QPD">Quality Printing & Design</h1>
+
+    <p className="quality-print">
+      Flyers • Cards • Banners • Stickers • Posters — professionally crafted.
+    </p>
+
+    <div className="actions">
+      <a href="#services" className="btn primary">View Services</a>
+      <a href="/contact" className="btn">Contact Us</a>
+
+    </div>
+  </div>
+
+  <div className="hero-right">
+    {heroImages.map((img, index) => (
+      <img
+        key={img}
+        src={img}
+        className={`hero-slide ${index === current ? "show" : ""}`}
+        alt="Print preview"
+      />
+    ))}
+  </div>
+
+</div>
+
         </section>
       </main>
 
