@@ -19,6 +19,7 @@ export default function HomePage() {
     document.body.classList.toggle("menu-open", menuOpen);
   }, [menuOpen]);
 
+ 
   // slideshow
   useEffect(() => {
     const t = setInterval(() => {
@@ -49,12 +50,14 @@ export default function HomePage() {
           </nav>
 
           <button
-            className="menu-toggle"
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            ☰
-          </button>
+  className="menu-toggle"
+  aria-expanded={menuOpen}
+  onClick={() => setMenuOpen(!menuOpen)}
+>
+  ☰
+</button>
+
+
         </div>
       </header>
 
