@@ -61,7 +61,6 @@ body {
   top: 0;
   z-index: 1000;
   background: var(--brand-gradient);
-  backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.45);
 }
 
@@ -69,8 +68,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.8rem 0;
+  gap: .5rem;
+  flex-wrap: nowrap;
 }
+
 
 .titled {
   font-size: clamp(2.2rem, 5vw, 3.5rem);
@@ -106,10 +107,23 @@ body {
 }
 
 .logo img {
-  height: 52px;
+  height: 42px;
+  max-width: 120px;
   width: auto;
-  will-change: transform;
 }
+
+@media (max-width: 768px) {
+  .logo {
+    font-size: 1.3rem;
+    gap: .4rem;
+  }
+
+  .logo img {
+    height: 34px;
+    max-width: 100px;
+  }
+}
+
 
 .logo.disassemble img {
   animation: logo-break 5s ease-in-out infinite;
@@ -359,6 +373,22 @@ body {
     transform: translateX(60%);
   }
 }
+
+.menu-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: inline-block;
+    font-size: 1.4rem;
+    border-radius: 10px;
+    background: white;
+    border: 1px solid rgba(0,0,0,.2);
+    padding: .3rem .6rem;
+  }
+}
+
 
 /* =========================
    RESPONSIVE
